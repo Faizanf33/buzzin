@@ -35,7 +35,7 @@ def seed_db():
     User(
         firstname="Admin",
         lastname="User",
-        email="admin@processpioneering.com",
+        email="admin@buzzin.ai",
         password="greaterthaneight",
         role=Role.ADMIN
     ).save()

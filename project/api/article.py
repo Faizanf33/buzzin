@@ -4,7 +4,7 @@ from flask import jsonify, request, Blueprint
 from project import db
 from project.api.authentications import authenticate
 from project.api.validators import email_validator, field_type_validator, required_validator
-from project.api.utils import get_bullet_points, get_keywords, get_news, get_news_sources, TOPICS
+from project.api.utils import get_bullet_points, get_news, get_news_sources, TOPICS
 
 from project.models import Role, User, Article, Keyword
 
