@@ -145,7 +145,12 @@ def get_articles(user_id: int, page: int, limit: int):
 
     try:
         articles = Article.query.filter_by(user_id=user_id).paginate(
-            page=page, per_page=limit, error_out=False)
+            page=int(page), per_page=int(limit), error_out=False)
+
+        if not articles:
+            response_object['message'] = 'Articles not found.'
+            return jsonify(response_object), 404
+        
         response_object["status"] = True
         response_object["message"] = "Articles retrieved successfully."
         response_object["data"] = [article.to_dict()

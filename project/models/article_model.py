@@ -21,6 +21,7 @@ class Article(CommonModel, SurrogatePK):
     __tablename__ = "articles"
 
     title = db.Column(db.String(256), nullable=False)
+    source = db.Column(db.String(256), nullable=False)
     slug = db.Column(db.String(256), nullable=False)
     author = db.Column(db.String(256), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
@@ -33,6 +34,8 @@ class Article(CommonModel, SurrogatePK):
 
     def __init__(self, title: str, source: str, author: str, date: datetime, keywords: str, user_id: int, **kwargs):
         slug = title.lower().replace(" ", "-")
+        # convert date to datetime object
+        date = datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
         keywords = str(keywords) if keywords else None
         db.Model.__init__(self, title=title, slug=slug, source=source,
                           author=author, date=date, keywords=keywords, user_id=user_id, **kwargs)

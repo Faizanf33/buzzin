@@ -90,14 +90,14 @@ def get_news(q: str, topic: str, sources: list, page: int = 1, limit: int = 100)
 # Not required anymore
 
 # initialize YAKE keyword extractor
-# kw_extractor = yake.KeywordExtractor()
+kw_extractor = yake.KeywordExtractor()
 
-# def get_keywords(text: str, max_keywords: int = 10):
-#     """
-#     Get keywords from text
-#     """
-#     keywords = kw_extractor.extract_keywords(text)
-#     return [keyword for keyword, score in keywords[:max_keywords]]
+def get_keywords(text: str, max_keywords: int = 10):
+    """
+    Get keywords from text
+    """
+    keywords = kw_extractor.extract_keywords(text)
+    return [keyword for keyword, score in keywords[:max_keywords]]
 
 
 # configure OpenAI API
