@@ -248,28 +248,37 @@ def user_settings(user_id: int):
             for topic in topics:
                 # join all keywords with AND and place in quotes for multi-word
                 # keywords
-                keywords = " AND ".join(
+                keyword_str = " AND ".join(
                     [
                         f'"{keyword}"' if " " in keyword else keyword
                         for keyword in keywords
                     ]
                 )
 
-                articles = get_news(q=keywords, topic=topic, sources=sources)
+                try:
+                    articles = get_news(q=keyword_str, topic=topic, sources=sources)
+                except Exception as e:
+                    logger.error(e)
+                    continue
 
                 if articles["status"] == "ok":
                     for article in articles["articles"]:
-                        Article(
-                            user_id=user_id,
-                            title=article["title"],
-                            source=article["clean_url"],
-                            author=article["authors"],
-                            date=article["published_date"],
-                            summary=article["summary"],
-                            link=article["link"],
-                            image_url=article["media"],
-                            keywords=get_keywords(article["excerpt"]),
-                        ).save()
+                        try:
+                            Article(
+                                user_id=user_id,
+                                title=article["title"],
+                                source=article["clean_url"],
+                                author=article["authors"],
+                                date=article["published_date"],
+                                summary=article["summary"],
+                                link=article["link"],
+                                image_url=article["media"],
+                                keywords=get_keywords(article["excerpt"]),
+                            ).save()
+                        
+                        except Exception as e:
+                            logger.error(e)
+                            continue
 
         response_object["status"] = True
         response_object["message"] = "User settings updated successfully."

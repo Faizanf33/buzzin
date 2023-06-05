@@ -16,8 +16,8 @@ else:
     database_url = "sqlite:///{}.db".format(database_name)
 
     # mysql://username:password@host:port/database
-    # database_url = "mysql://{}:{}@{}/{}".format(
-    #     database_username, database_password, host, database_name
+    # database_url = "mysql://{}:{}@{}:{}/{}".format(
+    #     database_username, database_password, host, port, database_name
     # )
 
     # postgresql://username:password@host:port/database
